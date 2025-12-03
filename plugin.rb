@@ -1,12 +1,8 @@
 # name: elserath-calendar
 # about: Affiche la date actuelle selon le calendrier d’Elserath (Ère 1099)
-# version: 0.2
+# version: 0.1
 # authors: La Sainte Pioche
 
-enabled_site_setting :elserath_calendar_enabled
-
-after_initialize do
-  add_to_serializer(:header) do
-    true
-  end
-end
+# Aucun site setting, aucune magie côté Ruby pour l’instant.
+# Le plugin se contente de charger le JS dans
+# assets/javascripts/discourse/initializers/elserath-calendar.js.es6
