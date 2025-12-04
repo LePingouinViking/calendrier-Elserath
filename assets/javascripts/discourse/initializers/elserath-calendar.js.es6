@@ -332,7 +332,8 @@ export default apiInitializer("1.0", (api) => {
   // 6. FORMATAGE TEXTE POUR LE HEADER
   // ================================
 
-  function formatHeaderLine(dateData) {
+  // Ancienne version détaillée, utilisée maintenant pour le tooltip complet
+  function formatHeaderFullLine(dateData) {
     const {
       era,
       monthName,
@@ -373,6 +374,60 @@ export default apiInitializer("1.0", (api) => {
     return line;
   }
 
+  // Nouvelle version compacte : main + sub + title
+  function formatHeaderLabel(dateData) {
+    const {
+      era,
+      monthName,
+      dayInMonth,
+      weekdayName,
+      isHorsChant,
+      horsChantName,
+      seasonName,
+      festivals,
+      moons
+    } = dateData;
+
+    const title = formatHeaderFullLine(dateData);
+
+    // Hors-chant : on reste simple
+    if (isHorsChant) {
+      const main = `${horsChantName} · ESR ${era}`;
+      const sub = festivals.length ? festivals.join(" · ") : "";
+      return { main, sub, title };
+    }
+
+    // Ligne principale compacte
+    const main = `${dayInMonth} ${monthName} ${era} · ${weekdayName}`;
+
+    // Sous-ligne : saison + 1ère fête + résumé des lunes
+    const subParts = [];
+
+    if (seasonName) {
+      subParts.push(seasonName);
+    }
+
+    if (festivals.length) {
+      subParts.push(festivals[0]);
+    }
+
+    if (moons) {
+      if (moons.vaelune) {
+        // on enlève le préfixe "Vaelune : "
+        const v = moons.vaelune.replace("Vaelune : ", "Vaelune ");
+        subParts.push(v);
+      }
+      if (moons.orishar) {
+        const o = moons.orishar.replace("Orishar : ", "Orishar ");
+        subParts.push(o);
+      }
+    }
+
+    const sub = subParts.join(" · ");
+
+    return { main, sub, title };
+  }
+
   // ================================
   // 7. INJECTION DANS LE HEADER
   // ================================
@@ -393,13 +448,28 @@ export default apiInitializer("1.0", (api) => {
     const li = document.createElement("li");
     li.className = "elserath-calendar-icon";
 
-    const span = document.createElement("span");
-    span.className = "elserath-calendar-label";
+    const wrapper = document.createElement("span");
+    wrapper.className = "elserath-calendar-label";
 
     const dateData = computeElserathDate(new Date());
-    span.textContent = formatHeaderLine(dateData);
+    const { main, sub, title } = formatHeaderLabel(dateData);
 
-    li.appendChild(span);
+    // Tooltip avec la version longue
+    wrapper.setAttribute("title", title);
+
+    const mainSpan = document.createElement("span");
+    mainSpan.className = "elserath-calendar-main";
+    mainSpan.textContent = main;
+    wrapper.appendChild(mainSpan);
+
+    if (sub) {
+      const subSpan = document.createElement("span");
+      subSpan.className = "elserath-calendar-sub";
+      subSpan.textContent = ` — ${sub}`;
+      wrapper.appendChild(subSpan);
+    }
+
+    li.appendChild(wrapper);
     headerIcons.appendChild(li);
   }
 
@@ -410,3 +480,4 @@ export default apiInitializer("1.0", (api) => {
   // Premier chargement
   injectCalendar();
 });
+```0
