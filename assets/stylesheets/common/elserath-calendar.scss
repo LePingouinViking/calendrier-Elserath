@@ -47,3 +47,153 @@
     display: none;
   }
 }
+/* Bouton calendrier à droite du logo */
+.d-header .title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.elserath-calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(8, 2, 20, 0.85);
+  border: 1px solid rgba(245, 211, 140, 0.45);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  color: #f9edcf;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.elserath-calendar-main {
+  font-family: "Uncial Antiqua", "Cormorant Garamond", serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.elserath-calendar-sub {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+/* Mobile : on garde seulement la ligne principale */
+@media (max-width: 767px) {
+  .elserath-calendar {
+    padding: 0.35rem 0.6rem;
+    max-width: 80vw;
+  }
+
+  .elserath-calendar-sub {
+    display: none;
+  }
+}
+
+/* =======================
+   POPUP CALENDRIER
+   ======================= */
+
+.elserath-calendar-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.elserath-calendar-content {
+  position: relative;
+  background: radial-gradient(circle at top, #281337 0%, #12061c 55%, #05020a 100%);
+  border-radius: 18px;
+  border: 1px solid rgba(201, 160, 74, 0.9);
+  padding: 1.5rem 2rem 1.75rem;
+  max-width: 640px;
+  width: 90%;
+  color: #f9edcf;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.85);
+}
+
+.elserath-calendar-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.7rem;
+  border: none;
+  background: transparent;
+  color: #f9edcf;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.elserath-calendar-title {
+  margin: 0 0 0.25rem;
+  font-family: "Uncial Antiqua", serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.elserath-calendar-subtitle {
+  margin-bottom: 0.75rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* Table */
+.elserath-calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0.75rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.95rem;
+}
+
+.elserath-calendar-table th,
+.elserath-calendar-table td {
+  text-align: center;
+  padding: 0.35rem 0.2rem;
+}
+
+.elserath-calendar-table th {
+  font-family: "Uncial Antiqua", serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  border-bottom: 1px solid rgba(201, 160, 74, 0.65);
+}
+
+.elserath-calendar-table td {
+  border-radius: 999px;
+  min-width: 2.1rem;
+}
+
+/* Aujourd’hui */
+.elserath-calendar-table td.is-today {
+  background: rgba(230, 195, 110, 0.95);
+  color: #2b1b12;
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(230, 195, 110, 0.8);
+}
+
+/* Jour avec fête */
+.elserath-calendar-table td.has-festival {
+  border: 1px solid rgba(201, 160, 74, 0.85);
+}
+
+/* Lunes du jour */
+.elserath-calendar-moons {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  text-align: center;
+}
