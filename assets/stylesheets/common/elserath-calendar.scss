@@ -1,8 +1,15 @@
-.elserath-calendar {
+/* Conteneur dans la barre du haut (le <li>) */
+.elserath-calendar-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* Capsule complète autour du texte */
+.elserath-calendar-label {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0 0.75rem;
+  padding: 0.75rem;
   border-radius: 999px;
   background: rgba(8, 2, 20, 0.85);
   border: 1px solid rgba(245, 211, 140, 0.45);
@@ -14,6 +21,7 @@
   text-overflow: ellipsis;
 }
 
+/* Ligne principale (date) */
 .elserath-calendar-main {
   font-family: "Uncial Antiqua", "Cormorant Garamond", serif;
   font-size: 0.9rem;
@@ -21,16 +29,17 @@
   text-transform: uppercase;
 }
 
+/* Sous-ligne (saison, fête, lunes) */
 .elserath-calendar-sub {
   font-family: "Cormorant Garamond", serif;
   font-size: 0.8rem;
   opacity: 0.8;
 }
 
-/* Sur mobile, on cache la sous-ligne pour que ça ne soit pas trop long */
+/* Sur mobile : capsule plus compacte + on cache la sous-ligne */
 @media (max-width: 767px) {
-  .elserath-calendar {
-    padding: 0 0.5rem;
+  .elserath-calendar-label {
+    padding: 0.5rem;
     max-width: 80vw;
   }
 
