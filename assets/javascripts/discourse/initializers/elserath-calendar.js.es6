@@ -34,6 +34,8 @@ export default apiInitializer("1.0", (api) => {
     "Ashar"
   ];
 
+  const CALENDAR_URL = "https://lasaintepioche.fr/calendrier.html";
+
   function isLeapYear(year) {
     return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
   }
@@ -164,6 +166,7 @@ export default apiInitializer("1.0", (api) => {
     };
   }
 
+  // (Toujours présent au cas où tu réactives la modale plus tard)
   function buildMonthGrid(era, monthIndex) {
     const monthName = MONTHS[monthIndex];
     const firstDayAbs = monthIndex * DAYS_IN_MONTH;
@@ -315,6 +318,9 @@ export default apiInitializer("1.0", (api) => {
     container.setAttribute("role", "button");
     container.setAttribute("tabindex", "0");
 
+    // (Optionnel mais propre pour l’accessibilité)
+    container.setAttribute("aria-label", "Ouvrir le calendrier d’Elserath");
+
     const main = document.createElement("div");
     main.className = "elserath-calendar-main";
 
@@ -333,19 +339,19 @@ export default apiInitializer("1.0", (api) => {
     container.appendChild(main);
     container.appendChild(sub);
 
-    function openModalFromIndicator() {
-      const freshData = computeElserathDate(new Date());
-      openCalendarModal(freshData);
+    // ✅ NOUVEAU : redirection vers ta page calendrier
+    function goToCalendarPage() {
+      window.location.href = CALENDAR_URL;
     }
 
     container.addEventListener("click", function () {
-      openModalFromIndicator();
+      goToCalendarPage();
     });
 
     container.addEventListener("keypress", function (e) {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        openModalFromIndicator();
+        goToCalendarPage();
       }
     });
 
